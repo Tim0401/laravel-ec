@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Barryvdh\Debugbar\Facade as Debugbar;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Str;
 
 class Authenticate extends Middleware
 {
@@ -14,7 +16,14 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
+            $uri = $request->path();
+            Debugbar::info($uri);
+
+            // URIが以下から始まる場合
+            if (Str::startsWith($uri, ['cms/'])) {
+                return route('cms.login');
+            }
             return route('login');
         }
     }

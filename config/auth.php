@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'cms' => [
+            'driver' => 'session',
+            'provider' => 'cms',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -70,6 +74,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'cms' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Seller::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -96,6 +104,12 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'cms' => [
+            'provider' => 'cms',
+            'table' => 'seller_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
