@@ -13,8 +13,11 @@
 
         <p>
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              検索条件
+                検索条件
             </button>
+            <a class="btn btn-primary" href="{{ route('cms.product.create') }}">
+                新規作成
+            </a>
         </p>
         <div class="collapse" id="collapseExample">
             <div class="card card-body">

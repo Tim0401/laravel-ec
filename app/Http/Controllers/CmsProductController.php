@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\ProductService;
 
 use App\Consts\ProductConst;
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -84,16 +85,30 @@ class CmsProductController extends Controller
 
     public function edit(Product $product)
     {
+        $product->load('tags');
+        Debugbar::debug($product);
         return view('cms.product.edit', ['product' => $product]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        return redirect()->route('cms.product.show', ['product' => 1]);
+        $filePath = null;
+        if ($request->file('image')) {
+            $filePath = $request->file('image')->store('public/products');
+            $filePath = '/storage/products/' . basename($filePath);
+        }
+        $id = $this->productService->save(null, $request->toArray(), $filePath);
+        return redirect()->route('cms.product.show', ['product' => $id]);
     }
 
-    public function update(Product $product, Request $request)
+    public function update(Product $product, StoreProductRequest $request)
     {
+        $filePath = null;
+        if ($request->file('image')) {
+            $filePath = $request->file('image')->store('public/products');
+            $filePath = '/storage/products/' . basename($filePath);
+        }
+        $this->productService->save($product, $request->toArray(), $filePath);
         return redirect()->route('cms.product.show', ['product' => $product->id]);
     }
 }

@@ -242,8 +242,8 @@ Route::prefix('cms')
 
             // Product
             Route::get('/product', [CmsProductController::class, 'index'])->name('product.index');
-            Route::get('/product/{product}', [CmsProductController::class, 'show'])->name('product.show');
             Route::get('/product/create', [CmsProductController::class, 'create'])->name('product.create');
+            Route::get('/product/{product}', [CmsProductController::class, 'show'])->name('product.show');
             Route::get('/product/{product}/edit', [CmsProductController::class, 'edit'])->name('product.edit');
             Route::post('/product', [CmsProductController::class, 'store'])->name('product.store');
             Route::put('/product/{product}', [CmsProductController::class, 'update'])->name('product.update');

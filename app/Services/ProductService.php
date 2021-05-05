@@ -5,8 +5,7 @@ namespace App\Services;
 use App\Consts\ProductConst;
 use App\Models\Product;
 use Barryvdh\Debugbar\Facade as Debugbar;
-
-use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
@@ -52,5 +51,35 @@ class ProductService
         $query->orderBy($sort, $order);
 
         return $query;
+    }
+
+    /**
+     * 商品保存
+     *
+     * @param Product|null $product
+     * @param array $data
+     * @param string|null $imagePath
+     *
+     * @return number
+     */
+    public function save($product, $data, $imagePath = null)
+    {
+        if (!$product) {
+            $product = new Product();
+            $product->seller_id = auth()->user()->id;
+        }
+        $product->name = $data['name'];
+        $product->description = $data['description'];
+        $product->price = $data['price'];
+        $product->stock = $data['stock'];
+        if ($imagePath) {
+            $product->image_path = $imagePath;
+        }
+        DB::transaction(function () use ($product) {
+
+            $product->save();
+        });
+
+        return $product->id;
     }
 }

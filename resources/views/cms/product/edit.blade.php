@@ -12,21 +12,37 @@
         @endif
 
         <div class="col mb-2">
-            <div class="card">
-                <img src="{{ $product->image_path }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $product->name }}</h5>
-                    @foreach ($product->tags as $tag)
-                        <h6 class="card-subtitle mb-2 text-muted inline">{{ $tag->name }}</h6>
-                    @endforeach
-                    <p class="card-text">{{ $product->description }}</p>
-                    <button class="btn btn-primary">保存</button>
+            @isset($product)
+            <form method="POST" action="{{ route('cms.product.update', [ 'product' => $product->id ]) }}"  enctype='multipart/form-data'>
+                @method('PUT')
+            @else
+            <form method="POST" action="{{ route('cms.product.store') }}" enctype='multipart/form-data'>
+            @endisset
+            @csrf
+                <label for="name" class="form-label">商品名</label>
+                <div class="input-group mb-3">
+                    <input type="text" name="name" class="form-control" id="name" value="{{ old('name') ?? $product->name ?? '' }}">
                 </div>
-                <div class="card-footer text-muted">
-                    ¥{{ number_format($product->price) }}
-                    在庫：{{ number_format($product->stock) }}
+                <label for="description" class="form-label">説明</label>
+                <div class="input-group mb-3">
+                    <textarea class="form-control" name="description" id="description" rows="3">{{ old('description') ?? $product->description ?? '' }}</textarea>
                 </div>
-              </div>
+                <label for="price" class="form-label">価格</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">￥</span>
+                    <input type="number" name="price" class="form-control" id="price" value="{{ old('price') ?? $product->price ?? 0 }}">
+                </div>
+                <label for="stock" class="form-label">在庫</label>
+                <div class="input-group mb-3">
+                    <input type="number" name="stock" class="form-control" id="stock" value="{{ old('stock') ?? $product->stock ?? 0 }}">
+                </div>
+                <label for="image" class="form-label">画像</label>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" accept="image/*" id="image" name="image">
+                </div>
+
+                <button class="btn btn-primary">保存</button>
+            </form>
         </div>
 
     </div>
