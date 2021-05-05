@@ -14,14 +14,15 @@ class CreateSellersTable extends Migration
     public function up()
     {
         Schema::create('sellers', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('name')->comment('名前');
             $table->string('email')->unique()->comment('メールアドレス');
             $table->timestamp('email_verified_at')->nullable()->comment('メール認証日時');
             $table->string('password')->comment('パスワード');
             $table->rememberToken()->comment('ログイン省略トークン');
-            
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

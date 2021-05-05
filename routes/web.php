@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -38,10 +39,21 @@ use Laravel\Jetstream\Jetstream;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// User
+Route::get('/', [ProductController::class, 'index'])->name('top');
+
+Route::get('product', [ProductController::class, 'index'])->name('product.index');
+Route::get('product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+
+// Login User
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
 
+// CMS
 Route::prefix('cms')
     ->namespace('\Laravel\Fortify\Http\Controllers')
     ->name('cms.')
@@ -185,7 +197,7 @@ Route::prefix('cms')
             Route::get('/privacy-policy', [PrivacyPolicyController::class, 'show'])->name('policy.show');
         }
 
-        // ログイン後
+        // Login CMS
         Route::group(['middleware' => ['auth:cms', 'verified']], function () {
             // User & Profile...
             Route::get('/user/profile', [UserProfileController::class, 'show'])
@@ -216,9 +228,3 @@ Route::prefix('cms')
             })->name('dashboard');
         });
     });
-
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
