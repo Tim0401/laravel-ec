@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CmsOrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CmsProductController;
 use Illuminate\Support\Facades\Route;
@@ -247,5 +248,8 @@ Route::prefix('cms')
             Route::get('/product/{product}/edit', [CmsProductController::class, 'edit'])->name('product.edit');
             Route::post('/product', [CmsProductController::class, 'store'])->name('product.store');
             Route::put('/product/{product}', [CmsProductController::class, 'update'])->name('product.update');
+
+            // Order
+            Route::get('/order', [CmsOrderController::class, 'index'])->name('order.index');
         });
     });

@@ -28,7 +28,7 @@
                             <x-jet-nav-link href="{{ route($prefix . 'product.index') }}" :active="request()->routeIs('cms.product.index')">
                                 {{ __('Product') }}
                             </x-jet-nav-link>
-                            <x-jet-nav-link href="{{ route($prefix . 'dashboard') }}" :active="request()->routeIs('cms.dashboard')">
+                            <x-jet-nav-link href="{{ route($prefix . 'order.index') }}" :active="request()->routeIs('cms.order.index')">
                                 {{ __('Order') }}
                             </x-jet-nav-link>
                         @endif

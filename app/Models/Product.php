@@ -20,4 +20,9 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\Seller');
     }
+
+    public function orderDetails()
+    {
+        return $this->hasMany('App\Models\OrderDetail');
+    }
 }
