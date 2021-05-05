@@ -22,7 +22,9 @@ services:
             - redis
             - selenium
     mariadb:
-        image: 'mariadb:10'
+        build:
+          context: ./mariadb
+          dockerfile: Dockerfile
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:

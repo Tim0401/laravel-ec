@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08a2dde045dd36b4e69e3eaa4d88e191",
+    "content-hash": "06b998a2f91569b7663ee2a80d0fc3a4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -110,6 +110,60 @@
                 "source": "https://github.com/Bacon/BaconQrCode/tree/2.0.3"
             },
             "time": "2020-10-30T02:02:47+00:00"
+        },
+        {
+            "name": "biiiiiigmonster/hasin",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/biiiiiigmonster/hasin.git",
+                "reference": "f59a5bc62c1ee9bc1ede87e69ce8409f25cee0a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/biiiiiigmonster/hasin/zipball/f59a5bc62c1ee9bc1ede87e69ce8409f25cee0a7",
+                "reference": "f59a5bc62c1ee9bc1ede87e69ce8409f25cee0a7",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.8",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BiiiiiigMonster\\Hasin\\HasinServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BiiiiiigMonster\\Hasin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "moyou",
+                    "email": "603707288@qq.com"
+                }
+            ],
+            "description": "Laravel framework relation has in implement",
+            "keywords": [
+                "laravel",
+                "orm",
+                "relation",
+                "whereHas"
+            ],
+            "support": {
+                "issues": "https://github.com/biiiiiigmonster/hasin/issues",
+                "source": "https://github.com/biiiiiigmonster/hasin/tree/v1.3.0"
+            },
+            "time": "2021-02-27T06:56:59+00:00"
         },
         {
             "name": "brick/math",

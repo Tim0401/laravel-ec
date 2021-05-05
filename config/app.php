@@ -229,6 +229,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+
+        // Consts
+        'ProductConst' =>  App\Consts\ProductConst::class,
+
     ],
 
 ];
