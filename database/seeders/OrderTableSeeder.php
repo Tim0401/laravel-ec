@@ -13,7 +13,7 @@ class OrderTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Order::factory(100)->create();
-        \App\Models\OrderDetail::factory(100)->create();
+        \App\Models\Order::factory(config('seeder.order_amount'))->create();
+        \App\Models\OrderDetail::factory(config('seeder.order_amount'))->create();
     }
 }

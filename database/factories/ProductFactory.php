@@ -30,6 +30,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->numberBetween(0, 100),
             'stock' => $this->faker->numberBetween(0, 100),
             'seller_id' => $this->faker->randomElement($sellers),
+            'image_path' => '/storage/noimage.png'
         ];
     }
 }

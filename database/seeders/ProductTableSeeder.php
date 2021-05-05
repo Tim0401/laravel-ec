@@ -14,10 +14,10 @@ class ProductTableSeeder extends Seeder
     public function run()
     {
 
-        \App\Models\Tag::factory(10)->create();
+        \App\Models\Tag::factory(config('seeder.tag_amount'))->create();
 
         $tags = \App\Models\Tag::all();
-        \App\Models\Product::factory(100)
+        \App\Models\Product::factory(config('seeder.product_amount'))
             ->create()
             ->each(function ($product) use ($tags) {
                 $product->tags()->attach(
