@@ -10,4 +10,14 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag')->withTimestamps();
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo('App\Models\Seller');
+    }
 }
