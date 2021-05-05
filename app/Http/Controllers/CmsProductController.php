@@ -80,14 +80,14 @@ class CmsProductController extends Controller
 
     public function create()
     {
-        return view('cms.product.edit');
+        return view('cms.product.edit', ['tags' => Tag::all()]);
     }
 
     public function edit(Product $product)
     {
         $product->load('tags');
         Debugbar::debug($product);
-        return view('cms.product.edit', ['product' => $product]);
+        return view('cms.product.edit', ['product' => $product, 'tags' => Tag::all()]);
     }
 
     public function store(StoreProductRequest $request)

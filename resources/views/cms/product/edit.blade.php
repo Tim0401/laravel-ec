@@ -41,6 +41,16 @@
                     <input type="file" class="form-control" accept="image/*" id="image" name="image">
                 </div>
 
+                <label class="form-label">タグ</label>
+                <div class="input-group mb-3">
+                    @foreach ($tags as $tag)
+                        <div class="form-check form-check-inline">
+                            <input name="tags[]" class="form-check-input" type="checkbox" id="tag_{{ $tag->id }}" value="{{ $tag->id }}" {{ in_array($tag->id, old('tags') ?? $product->tags->pluck('id')->all() ?? []) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="tag_{{ $tag->id }}">{{ $tag->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+
                 <button class="btn btn-primary">保存</button>
             </form>
         </div>

@@ -75,8 +75,12 @@ class ProductService
         if ($imagePath) {
             $product->image_path = $imagePath;
         }
-        DB::transaction(function () use ($product) {
-
+        $tags = [];
+        if (!empty($data['tags'])) {
+            $tags = $data['tags'];
+        }
+        DB::transaction(function () use ($product, $tags) {
+            $product->tags()->sync($tags);
             $product->save();
         });
 
