@@ -17,13 +17,19 @@ class ProductService
      * @param array  $tags
      * @param string $sort
      * @param string $order
+     * @param number|null   $sellerId
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function search($base = '', $tags = [], $sort = 'created_at', $order = 'desc')
+    public function search($base = '', $tags = [], $sort = 'created_at', $order = 'desc', $sellerId = null)
     {
         /** @var \Illuminate\Database\Eloquent\Builder $query */
         $query = Product::with('tags');
+
+        // 販売者で検索
+        if ($sellerId) {
+            $query->where('seller_id', $sellerId);
+        }
 
         // タグ検索
         if (!empty($tags)) {

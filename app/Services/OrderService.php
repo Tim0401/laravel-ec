@@ -46,7 +46,7 @@ class OrderService
             });
 
             Product::upsert(array_map(function ($item) {
-                $item['created_at'] = Carbon::parse($item['created_at'])->format('Y-m-d H:i:s');
+                unset($item['created_at']);
                 $item['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
                 return $item;
             }, $products->toArray()), 'id');

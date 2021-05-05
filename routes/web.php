@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CmsProductController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -28,7 +29,6 @@ use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 use Laravel\Jetstream\Http\Controllers\TeamInvitationController;
 use Laravel\Jetstream\Jetstream;
-use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -233,8 +233,19 @@ Route::prefix('cms')
              * ダッシュボード
              * @method GET
              */
+            Route::get('/', function () {
+                return view('cms.dashboard');
+            })->name('top');
             Route::get('/dashboard', function () {
                 return view('cms.dashboard');
             })->name('dashboard');
+
+            // Product
+            Route::get('/product', [CmsProductController::class, 'index'])->name('product.index');
+            Route::get('/product/{product}', [CmsProductController::class, 'show'])->name('product.show');
+            Route::get('/product/create', [CmsProductController::class, 'create'])->name('product.create');
+            Route::get('/product/{product}/edit', [CmsProductController::class, 'edit'])->name('product.edit');
+            Route::post('/product', [CmsProductController::class, 'store'])->name('product.store');
+            Route::put('/product/{product}', [CmsProductController::class, 'update'])->name('product.update');
         });
     });

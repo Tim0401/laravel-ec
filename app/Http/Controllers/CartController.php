@@ -104,7 +104,7 @@ class CartController extends Controller
         }
 
         // カートをクリア
-        // \Cart::session(auth()->user()->id)->clear();
+        \Cart::session(auth()->user()->id)->clear();
 
         // 購入完了画面
         return redirect()->route('cart.finish');
