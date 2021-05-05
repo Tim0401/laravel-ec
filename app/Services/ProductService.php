@@ -10,6 +10,16 @@ use function PHPUnit\Framework\isEmpty;
 
 class ProductService
 {
+    /**
+     * 検索条件の作成
+     *
+     * @param string $base
+     * @param array  $tags
+     * @param string $sort
+     * @param string $order
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function search($base = '', $tags = [], $sort = 'created_at', $order = 'desc')
     {
         /** @var \Illuminate\Database\Eloquent\Builder $query */

@@ -63,7 +63,7 @@
                             <h6 class="card-subtitle mb-2 text-muted inline">{{ $tag->name }}</h6>
                           @endforeach
                           <p class="card-text">{{ $product->description }}</p>
-                          <a href="{{ route('product.show', ['id' => $product->id]) }}" class="btn btn-primary">詳細</a>
+                          <a href="{{ route('product.show', ['product' => $product->id]) }}" class="btn btn-primary">詳細</a>
                         </div>
                         <div class="card-footer text-muted">
                             ¥{{ number_format($product->price) }}

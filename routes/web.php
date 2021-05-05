@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -27,6 +28,7 @@ use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 use Laravel\Jetstream\Http\Controllers\TeamInvitationController;
 use Laravel\Jetstream\Jetstream;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,15 +44,22 @@ use Laravel\Jetstream\Jetstream;
 // User
 Route::get('/', [ProductController::class, 'index'])->name('top');
 
-Route::get('product', [ProductController::class, 'index'])->name('product.index');
-Route::get('product/{id}', [ProductController::class, 'show'])->name('product.show');
-
+// Product
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
 // Login User
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    // Cart
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::put('/cart', [CartController::class, 'update'])->name('cart.update');
+    Route::put('/cart/buy', [CartController::class, 'buy'])->name('cart.buy');
+    Route::get('/cart/delete/{product}', [CartController::class, 'delete'])->name('cart.delete');
 });
 
 // CMS

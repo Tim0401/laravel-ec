@@ -69,4 +69,9 @@ class ProductController extends Controller
             'tags' => $tags,
         ]);
     }
+
+    public function show(Product $product)
+    {
+        return view('product.show', ['product' => $product]);
+    }
 }
