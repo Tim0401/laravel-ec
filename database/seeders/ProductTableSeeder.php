@@ -23,7 +23,7 @@ class ProductTableSeeder extends Seeder
 
         $tags = \App\Models\Tag::all();
 
-        if (config('seeder.order_amount') < 10000) {
+        if (config('seeder.product_amount') < 5000) {
             \App\Models\Product::factory(config('seeder.product_amount'))
                 ->create()
                 ->each(function ($product) use ($tags) {
@@ -32,8 +32,8 @@ class ProductTableSeeder extends Seeder
                     );
                 });
         } else {
-            for ($i = 0; $i < config('seeder.order_amount') / 10000; $i++) {
-                \App\Models\Product::factory(10000)
+            for ($i = 0; $i < config('seeder.product_amount') / 5000; $i++) {
+                \App\Models\Product::factory(5000)
                     ->create()
                     ->each(function ($product) use ($tags) {
                         $product->tags()->attach(
