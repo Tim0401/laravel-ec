@@ -33,6 +33,7 @@ cms@example.com:password
 
 ## todo
 
+* Queryを見ながらdbindexの見直し
 ### User
 
 * 購入履歴表示
