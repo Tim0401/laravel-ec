@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\ProductService;
+use App\Services\OrderService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
     {
         app()->singleton(ProductService::class, function () {
             return new ProductService();
+        });
+
+        app()->singleton(OrderService::class, function () {
+            return new OrderService();
         });
     }
 

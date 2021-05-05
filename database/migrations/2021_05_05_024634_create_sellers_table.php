@@ -21,7 +21,8 @@ class CreateSellersTable extends Migration
             $table->string('password')->comment('パスワード');
             $table->rememberToken()->comment('ログイン省略トークン');
 
-            $table->timestamps();
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
             $table->softDeletes();
         });
     }

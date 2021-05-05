@@ -56,6 +56,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     // Cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/cart/finish', [CartController::class, 'finish'])->name('cart.finish');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::put('/cart', [CartController::class, 'update'])->name('cart.update');
     Route::put('/cart/buy', [CartController::class, 'buy'])->name('cart.buy');

@@ -2,12 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\StockException;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Barryvdh\Debugbar\Facade as Debugbar;
+use App\Services\OrderService;
 
 class CartController extends Controller
 {
+    /**
+     * ProductServiceの実装
+     *
+     * @var OrderService
+     */
+    protected $orderService;
+
+    /**
+     * 新しいコントローラインスタンスの生成
+     *
+     * @param  OrderService  $orderService
+     * @return void
+     */
+    public function __construct(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+    }
+
     public function index()
     {
         $items = \Cart::session(auth()->user()->id)->getContent();
@@ -75,13 +95,24 @@ class CartController extends Controller
             ));
         }
 
-        // 購入処理
+        // 購入処理/在庫チェック
+        $items = \Cart::session(auth()->user()->id)->getContent();
+        try {
+            $this->orderService->buy($items, auth()->user()->id);
+        } catch (StockException $e) {
+            return back()->withErrors(array('stock' => 'not enough stock.'));
+        }
 
         // カートをクリア
-        \Cart::session(auth()->user()->id)->clear();
+        // \Cart::session(auth()->user()->id)->clear();
 
         // 購入完了画面
-        return view('cart.buy');
+        return redirect()->route('cart.finish');
+    }
+
+    public function finish()
+    {
+        return view('cart.finish');
     }
 
     public function delete($id)
