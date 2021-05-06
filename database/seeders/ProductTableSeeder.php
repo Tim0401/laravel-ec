@@ -33,7 +33,7 @@ class ProductTableSeeder extends Seeder
             \App\Models\Product::insert(array_map(function ($item) use (&$sellers) {
                 $item['created_at'] = Carbon::now()->format('Y-m-d H:i:s');
                 $item['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
-                $item['seller_id'] = array_rand($sellers);
+                $item['seller_id'] = $sellers[array_rand($sellers)];
                 return $item;
             }, $products->toArray()));
         }

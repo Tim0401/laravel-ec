@@ -23,7 +23,7 @@ class OrderTableSeeder extends Seeder
             \App\Models\Order::insert(array_map(function ($item) use (&$users) {
                 $item['created_at'] = Carbon::now()->format('Y-m-d H:i:s');
                 $item['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
-                $item['user_id'] = array_rand($users);
+                $item['user_id'] = $users[array_rand($users)];
                 return $item;
             }, $orders->toArray()));
         }
@@ -35,8 +35,8 @@ class OrderTableSeeder extends Seeder
             \App\Models\OrderDetail::insert(array_map(function ($item) use (&$orders, &$products) {
                 $item['created_at'] = Carbon::now()->format('Y-m-d H:i:s');
                 $item['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
-                $item['order_id'] = array_rand($orders);
-                $item['product_id'] = array_rand($products);
+                $item['order_id'] = $orders[array_rand($orders)];
+                $item['product_id'] = $products[array_rand($products)];
                 return $item;
             }, $orderDetails->toArray()));
         }
