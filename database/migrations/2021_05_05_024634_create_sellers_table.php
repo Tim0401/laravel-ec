@@ -23,7 +23,7 @@ class CreateSellersTable extends Migration
 
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
-            $table->softDeletes();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

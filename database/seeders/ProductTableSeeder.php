@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Seller;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
+use Faker\Factory as Faker;
 
 class ProductTableSeeder extends Seeder
 {
@@ -13,34 +16,33 @@ class ProductTableSeeder extends Seeder
      */
     public function run()
     {
-        if (config('seeder.tag_amount') < 10000) {
+        if (config('seeder.tag_amount') < 1000) {
             \App\Models\Tag::factory(config('seeder.tag_amount'))->create();
         } else {
-            for ($i = 0; $i < config('seeder.tag_amount') / 10000; $i++) {
-                \App\Models\Tag::factory(10000)->create();
+            for ($i = 0; $i < config('seeder.tag_amount') / 1000; $i++) {
+                \App\Models\Tag::factory(1000)->create();
             }
         }
 
         $tags = \App\Models\Tag::all();
 
-        if (config('seeder.product_amount') < 5000) {
-            \App\Models\Product::factory(config('seeder.product_amount'))
-                ->create()
-                ->each(function ($product) use ($tags) {
-                    $product->tags()->attach(
-                        $tags->random(rand(1, 3))->pluck('id')->toArray()
-                    );
-                });
-        } else {
-            for ($i = 0; $i < config('seeder.product_amount') / 5000; $i++) {
-                \App\Models\Product::factory(5000)
-                    ->create()
-                    ->each(function ($product) use ($tags) {
-                        $product->tags()->attach(
-                            $tags->random(rand(1, 3))->pluck('id')->toArray()
-                        );
-                    });
-            }
+        $sellers = Seller::pluck('id')->toArray();
+
+        for ($i = 0; $i < config('seeder.product_amount') / 1000; $i++) {
+            $products = \App\Models\Product::factory(1000)->make();
+            \App\Models\Product::insert(array_map(function ($item) use (&$sellers) {
+                $item['created_at'] = Carbon::now()->format('Y-m-d H:i:s');
+                $item['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
+                $item['seller_id'] = array_rand($sellers);
+                return $item;
+            }, $products->toArray()));
         }
+
+        $products = \App\Models\Product::get();
+        $products->each(function ($product) use ($tags) {
+            $product->tags()->attach(
+                $tags->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
     }
 }

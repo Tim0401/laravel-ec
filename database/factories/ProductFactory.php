@@ -23,13 +23,11 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $sellers = Seller::pluck('id')->toArray();
         return [
             'name' => $this->faker->realText(rand(10, 20)),
             'description' => $this->faker->realText,
             'price' => $this->faker->numberBetween(0, 100),
             'stock' => $this->faker->numberBetween(0, 100),
-            'seller_id' => $this->faker->randomElement($sellers),
             'image_path' => '/storage/noimage.png'
         ];
     }

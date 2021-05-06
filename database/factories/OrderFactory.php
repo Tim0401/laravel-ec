@@ -22,9 +22,7 @@ class OrderFactory extends Factory
      */
     public function definition()
     {
-        $users = User::pluck('id')->toArray();
         return [
-            'user_id' => $this->faker->randomElement($users),
             'price' => $this->faker->numberBetween(0, 100),
         ];
     }
