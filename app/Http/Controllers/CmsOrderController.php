@@ -11,7 +11,7 @@ class CmsOrderController extends Controller
     public function index()
     {
         $orderDetails = OrderDetail::with(['product.seller', 'order.user'])
-            ->whereHas(
+            ->whereHasIn(
                 'product',
                 function ($query) {
                     $query->where('seller_id', auth()->user()->id);

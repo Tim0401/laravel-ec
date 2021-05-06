@@ -32,7 +32,7 @@ class ProductService
 
         // タグ検索
         if (!empty($tags)) {
-            $query->whereHas(
+            $query->whereHasIn(
                 'tags',
                 function ($query) use ($tags) {
                     $query->whereIn('tag_id', $tags);

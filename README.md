@@ -79,6 +79,8 @@ http://localhost/cms/order
 ```
 
 ## todo
+
+* タグ検索の高速化
 ### User
 
 * 購入履歴表示
