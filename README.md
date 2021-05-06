@@ -16,10 +16,11 @@ docker-compose up -d
 ```
 
 
-## login
+## Routing
 
 ### User
 
+Login  
 ```
 http://localhost/login
 user@example.com:password
@@ -42,6 +43,7 @@ http://localhost/cart
 
 ### CMS
 
+Login  
 ```
 http://localhost/cms/login
 cms@example.com:password

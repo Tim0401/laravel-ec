@@ -15,6 +15,8 @@ class AuthTableSeeder extends Seeder
      */
     public function run()
     {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+
         \App\Models\User::insert([
             'name' => 'テストユーザー',
             'email' => config('seeder.sample_user_email'),
@@ -25,10 +27,10 @@ class AuthTableSeeder extends Seeder
         } else {
             for ($i = 0; $i < config('seeder.user_amount') / 1000; $i++) {
                 $users = \App\Models\User::factory(1000)->make();
-                \App\Models\User::insert(array_map(function ($item) {
-                    $item['created_at'] = Carbon::now()->format('Y-m-d H:i:s');
-                    $item['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
-                    $item['email_verified_at'] = Carbon::now()->format('Y-m-d H:i:s');
+                \App\Models\User::insert(array_map(function ($item) use ($now) {
+                    $item['created_at'] = $now;
+                    $item['updated_at'] = $now;
+                    $item['email_verified_at'] = $now;
                     $item['password'] = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
                     unset($item['profile_photo_url']);
                     return $item;
@@ -46,10 +48,10 @@ class AuthTableSeeder extends Seeder
         } else {
             for ($i = 0; $i < config('seeder.seller_amount') / 1000; $i++) {
                 $sellers = \App\Models\Seller::factory(1000)->make();
-                \App\Models\Seller::insert(array_map(function ($item) {
-                    $item['created_at'] = Carbon::now()->format('Y-m-d H:i:s');
-                    $item['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
-                    $item['email_verified_at'] = Carbon::now()->format('Y-m-d H:i:s');
+                \App\Models\Seller::insert(array_map(function ($item) use ($now) {
+                    $item['created_at'] = $now;
+                    $item['updated_at'] = $now;
+                    $item['email_verified_at'] = $now;
                     $item['password'] = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
                     unset($item['profile_photo_url']);
                     return $item;
