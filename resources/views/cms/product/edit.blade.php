@@ -45,7 +45,7 @@
                 <div class="input-group mb-3">
                     @foreach ($tags as $tag)
                         <div class="form-check form-check-inline">
-                            <input name="tags[]" class="form-check-input" type="checkbox" id="tag_{{ $tag->id }}" value="{{ $tag->id }}" {{ in_array($tag->id, old('tags') ?? $product->tags->pluck('id')->all() ?? []) ? 'checked' : '' }}>
+                            <input name="tags[]" class="form-check-input" type="checkbox" id="tag_{{ $tag->id }}" value="{{ $tag->id }}" {{ in_array($tag->id, old('tags') ?? isset($product->tags) ? $product->tags->pluck('id')->all() : []) ? 'checked' : '' }}>
                             <label class="form-check-label" for="tag_{{ $tag->id }}">{{ $tag->name }}</label>
                         </div>
                     @endforeach
