@@ -16,6 +16,11 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Tag')->using('App\Models\ProductTag')->withTimestamps();
     }
 
+    public function productTags()
+    {
+        return $this->hasMany('App\Models\ProductTag');
+    }
+
     public function seller()
     {
         return $this->belongsTo('App\Models\Seller');

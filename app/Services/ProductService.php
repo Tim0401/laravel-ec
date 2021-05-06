@@ -33,10 +33,8 @@ class ProductService
 
         // タグ検索
         if (!empty($tags)) {
-            // $productIds = ProductTag::whereIn('tag_id', $tags)->distinct()->select('product_id')->get()->pluck('product_id')->toArray();
-            // $query->whereIn('id', $productIds);
-            $query->whereHasIn(
-                'tags',
+            $query->whereHas(
+                'productTags',
                 function ($query) use ($tags) {
                     $query->whereIn('tag_id', $tags);
                 }
