@@ -21,7 +21,7 @@ class OrderTableSeeder extends Seeder
         $users = User::pluck('id')->toArray();
         for ($i = 0; $i < config('seeder.order_amount') / 1000; $i++) {
             $orders = \App\Models\Order::factory(1000)->make();
-            \App\Models\Order::insert(array_map(function ($item) use (&$users, $now) {
+            \App\Models\Order::insert(array_map(function ($item) use ($users, $now) {
                 $item['created_at'] = $now;
                 $item['updated_at'] = $now;
                 $item['user_id'] = $users[array_rand($users)];
@@ -33,7 +33,7 @@ class OrderTableSeeder extends Seeder
         $products = Product::pluck('id')->toArray();
         for ($i = 0; $i < config('seeder.order_amount') / 1000; $i++) {
             $orderDetails = \App\Models\OrderDetail::factory(1000)->make();
-            \App\Models\OrderDetail::insert(array_map(function ($item) use (&$orders, &$products, $now) {
+            \App\Models\OrderDetail::insert(array_map(function ($item) use ($orders, $products, $now) {
                 $item['created_at'] = $now;
                 $item['updated_at'] = $now;
                 $item['order_id'] = $orders[array_rand($orders)];

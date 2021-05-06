@@ -32,7 +32,7 @@ class ProductTableSeeder extends Seeder
 
         for ($i = 0; $i < config('seeder.product_amount') / 1000; $i++) {
             $products = \App\Models\Product::factory(1000)->make();
-            \App\Models\Product::insert(array_map(function ($item) use (&$sellers, $now) {
+            \App\Models\Product::insert(array_map(function ($item) use ($sellers, $now) {
                 $item['created_at'] = $now;
                 $item['updated_at'] = $now;
                 $item['seller_id'] = $sellers[array_rand($sellers)];
