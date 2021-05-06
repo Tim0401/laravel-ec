@@ -3,6 +3,7 @@
 ## 環境
 
 ```
+PHP 7.4
 laravel 8
 MariaDB 10.6
 ```
@@ -24,11 +25,42 @@ http://localhost/login
 user@example.com:password
 ```
 
+マイページ(仮)  
+```
+http://localhost/dashboard
+```
+
+商品一覧  
+```
+http://localhost/product
+```
+
+カート  
+```
+http://localhost/cart
+```
+
 ### CMS
 
 ```
 http://localhost/cms/login
 cms@example.com:password
+```
+
+
+マイページ(仮)  
+```
+http://localhost/cms/dashboard
+```
+
+出品商品一覧  
+```
+http://localhost/cms/product
+```
+
+注文一覧  
+```
+http://localhost/cms/order
 ```
 
 ## todo
