@@ -15,6 +15,19 @@ https://laravel.com/docs/8.x/sail
 docker-compose up -d
 ```
 
+## db migrate
+
+migrate+seed
+```
+php -d memory_limit=-1 artisan migrate:fresh --seed
+```
+
+Seeder個別実行  
+```
+php artisan db:seed --class=AuthTableSeeder
+php artisan db:seed --class=ProductTableSeeder
+php artisan db:seed --class=OrderTableSeeder
+```
 
 ## Routing
 
