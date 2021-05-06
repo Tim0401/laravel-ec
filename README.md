@@ -79,8 +79,6 @@ http://localhost/cms/order
 ```
 
 ## todo
-
-* Queryを見ながらdbindexの見直し
 ### User
 
 * 購入履歴表示
