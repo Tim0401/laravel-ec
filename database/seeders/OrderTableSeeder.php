@@ -44,10 +44,11 @@ class OrderTableSeeder extends Seeder
 
         Order::orderBy('id')->chunk(1000, function ($orders) use ($products, $now) {
             $orderDetails = \App\Models\OrderDetail::factory(1000)->make();
-            \App\Models\OrderDetail::insert(array_map(function ($item) use ($orders, $products, $now) {
+            $orderIds = $orders->pluck('id')->toArray();
+            \App\Models\OrderDetail::insert(array_map(function ($item) use ($orderIds, $products, $now) {
                 $item['created_at'] = $now;
                 $item['updated_at'] = $now;
-                $item['order_id'] = $orders[array_rand($orders)];
+                $item['order_id'] = $orderIds[array_rand($orderIds)];
                 $item['product_id'] = $products[array_rand($products)];
                 return $item;
             }, $orderDetails->toArray()));
