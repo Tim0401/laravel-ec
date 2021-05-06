@@ -81,8 +81,8 @@ class ProductService
             $tags = $data['tags'];
         }
         DB::transaction(function () use ($product, $tags) {
-            $product->tags()->sync($tags);
             $product->save();
+            $product->tags()->sync($tags);
         });
 
         return $product->id;
