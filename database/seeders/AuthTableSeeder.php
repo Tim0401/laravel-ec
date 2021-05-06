@@ -17,6 +17,7 @@ class AuthTableSeeder extends Seeder
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
 
+        // User
         \App\Models\User::insert([
             'name' => 'テストユーザー',
             'email' => config('seeder.sample_user_email'),
@@ -38,6 +39,7 @@ class AuthTableSeeder extends Seeder
             }
         }
 
+        // Seller
         \App\Models\Seller::insert([
             'name' => 'テストCMS',
             'email' => config('seeder.sample_cms_email'),

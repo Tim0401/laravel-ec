@@ -18,6 +18,7 @@ class ProductTableSeeder extends Seeder
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
 
+        // Tag
         if (config('seeder.tag_amount') < 1000) {
             \App\Models\Tag::factory(config('seeder.tag_amount'))->create();
         } else {
@@ -26,10 +27,9 @@ class ProductTableSeeder extends Seeder
             }
         }
 
+        // Product
         $tags = \App\Models\Tag::all();
-
         $sellers = Seller::pluck('id')->toArray();
-
         for ($i = 0; $i < config('seeder.product_amount') / 1000; $i++) {
             $products = \App\Models\Product::factory(1000)->make();
             \App\Models\Product::insert(array_map(function ($item) use ($sellers, $now) {

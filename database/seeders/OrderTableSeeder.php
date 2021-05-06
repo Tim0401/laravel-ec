@@ -18,6 +18,8 @@ class OrderTableSeeder extends Seeder
     public function run()
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
+
+        // Order
         $users = User::pluck('id')->toArray();
         for ($i = 0; $i < config('seeder.order_amount') / 1000; $i++) {
             $orders = \App\Models\Order::factory(1000)->make();
@@ -29,19 +31,9 @@ class OrderTableSeeder extends Seeder
             }, $orders->toArray()));
         }
 
-        // $orders = Order::limit()->pluck('id')->toArray();
+        // OrderDetail
         $products = Product::pluck('id')->toArray();
-        // for ($i = 0; $i < config('seeder.order_amount') / 1000; $i++) {
-        //     $orderDetails = \App\Models\OrderDetail::factory(1000)->make();
-        //     \App\Models\OrderDetail::insert(array_map(function ($item) use ($orders, $products, $now) {
-        //         $item['created_at'] = $now;
-        //         $item['updated_at'] = $now;
-        //         $item['order_id'] = $orders[array_rand($orders)];
-        //         $item['product_id'] = $products[array_rand($products)];
-        //         return $item;
-        //     }, $orderDetails->toArray()));
-        // }
-
+        // Orderは多すぎるので分割して取得
         Order::orderBy('id')->chunk(1000, function ($orders) use ($products, $now) {
             $orderDetails = \App\Models\OrderDetail::factory(1000)->make();
             $orderIds = $orders->pluck('id')->toArray();
