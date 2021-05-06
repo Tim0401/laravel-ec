@@ -29,9 +29,20 @@ class OrderTableSeeder extends Seeder
             }, $orders->toArray()));
         }
 
-        $orders = Order::pluck('id')->toArray();
+        // $orders = Order::limit()->pluck('id')->toArray();
         $products = Product::pluck('id')->toArray();
-        for ($i = 0; $i < config('seeder.order_amount') / 1000; $i++) {
+        // for ($i = 0; $i < config('seeder.order_amount') / 1000; $i++) {
+        //     $orderDetails = \App\Models\OrderDetail::factory(1000)->make();
+        //     \App\Models\OrderDetail::insert(array_map(function ($item) use ($orders, $products, $now) {
+        //         $item['created_at'] = $now;
+        //         $item['updated_at'] = $now;
+        //         $item['order_id'] = $orders[array_rand($orders)];
+        //         $item['product_id'] = $products[array_rand($products)];
+        //         return $item;
+        //     }, $orderDetails->toArray()));
+        // }
+
+        Order::orderBy('id')->chunk(1000, function ($orders) use ($products, $now) {
             $orderDetails = \App\Models\OrderDetail::factory(1000)->make();
             \App\Models\OrderDetail::insert(array_map(function ($item) use ($orders, $products, $now) {
                 $item['created_at'] = $now;
@@ -40,6 +51,6 @@ class OrderTableSeeder extends Seeder
                 $item['product_id'] = $products[array_rand($products)];
                 return $item;
             }, $orderDetails->toArray()));
-        }
+        });
     }
 }
