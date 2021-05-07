@@ -19,13 +19,6 @@ class CreateIndex extends Migration
             $table->index(['deleted_at', 'stock']);
             $table->index(['deleted_at', 'created_at']);
         });
-
-        Schema::table('orders', function (Blueprint $table) {
-            $table->index(['created_at']);
-        });
-        Schema::table('order_details', function (Blueprint $table) {
-            $table->index(['created_at']);
-        });
         Schema::table('users', function (Blueprint $table) {
             $table->index(['deleted_at']);
         });
@@ -46,13 +39,6 @@ class CreateIndex extends Migration
             $table->dropIndex(['deleted_at', 'price']);
             $table->dropIndex(['deleted_at', 'stock']);
             $table->dropIndex(['deleted_at', 'created_at']);
-        });
-
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropIndex(['created_at']);
-        });
-        Schema::table('order_details', function (Blueprint $table) {
-            $table->dropIndex(['created_at']);
         });
         Schema::table('users', function (Blueprint $table) {
             $table->dropIndex(['deleted_at']);
