@@ -19,6 +19,9 @@ class CreateIndex extends Migration
             $table->index(['deleted_at', 'stock']);
             $table->index(['deleted_at', 'created_at']);
         });
+        Schema::table('product_tag', function (Blueprint $table) {
+            $table->unique(['product_id', 'tag_id']);
+        });
         Schema::table('users', function (Blueprint $table) {
             $table->index(['deleted_at']);
         });
@@ -39,6 +42,9 @@ class CreateIndex extends Migration
             $table->dropIndex(['deleted_at', 'price']);
             $table->dropIndex(['deleted_at', 'stock']);
             $table->dropIndex(['deleted_at', 'created_at']);
+        });
+        Schema::table('product_tag', function (Blueprint $table) {
+            $table->dropUnique(['product_id', 'tag_id']);
         });
         Schema::table('users', function (Blueprint $table) {
             $table->dropIndex(['deleted_at']);
