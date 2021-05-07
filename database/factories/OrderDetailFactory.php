@@ -25,7 +25,7 @@ class OrderDetailFactory extends Factory
     {
         return [
             'price' => $this->faker->numberBetween(0, 100),
-            'amount' => $this->faker->numberBetween(0, 100),
+            'amount' => $this->faker->numberBetween(1, 100),
         ];
     }
 }
