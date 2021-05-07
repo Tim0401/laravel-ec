@@ -66,15 +66,16 @@ class ProductService
     public function uploadImage($file)
     {
         $imagePath = $file->store('public/products');
-        $image = Image::make(Storage::get($imagePath))->resize(
-            1024,
-            null,
-            function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            }
-        )->encode('jpg', 50);
-        Storage::put($imagePath, $image);
+        // TODO: 変換にGDライブラリ必須な為コメントアウト
+        // $image = Image::make(Storage::get($imagePath))->resize(
+        //     1024,
+        //     null,
+        //     function ($constraint) {
+        //         $constraint->aspectRatio();
+        //         $constraint->upsize();
+        //     }
+        // )->encode('jpg', 50);
+        // Storage::put($imagePath, $image);
         return Storage::url($imagePath);
     }
 
