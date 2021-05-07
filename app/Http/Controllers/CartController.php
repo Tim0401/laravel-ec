@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Services\OrderService;
+use Exception;
 
 class CartController extends Controller
 {
@@ -101,6 +102,8 @@ class CartController extends Controller
             $this->orderService->buy($items, auth()->user()->id);
         } catch (StockException $e) {
             return back()->withErrors(array('stock' => 'not enough stock.'));
+        } catch (Exception $e) {
+            return back()->withErrors(array('error' => 'error during buy.'));
         }
 
         // カートをクリア

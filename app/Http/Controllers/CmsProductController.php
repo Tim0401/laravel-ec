@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Barryvdh\Debugbar\Facade as Debugbar;
+use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -97,8 +98,12 @@ class CmsProductController extends Controller
             $filePath = $request->file('image')->store('public/products');
             $filePath = '/storage/products/' . basename($filePath);
         }
-        $id = $this->productService->save(null, $request->toArray(), $filePath);
-        return redirect()->route('cms.product.show', ['product' => $id]);
+        try {
+            $id = $this->productService->save(null, $request->toArray(), $filePath);
+            return redirect()->route('cms.product.show', ['product' => $id]);
+        } catch (Exception $e) {
+            return back()->withErrors(array('error' => 'store product failed.'));
+        }
     }
 
     public function update(Product $product, StoreProductRequest $request)
@@ -108,7 +113,11 @@ class CmsProductController extends Controller
             $filePath = $request->file('image')->store('public/products');
             $filePath = '/storage/products/' . basename($filePath);
         }
-        $this->productService->save($product, $request->toArray(), $filePath);
-        return redirect()->route('cms.product.show', ['product' => $product->id]);
+        try {
+            $this->productService->save($product, $request->toArray(), $filePath);
+            return redirect()->route('cms.product.show', ['product' => $product->id]);
+        } catch (Exception $e) {
+            return back()->withErrors(array('error' => 'update product failed.'));
+        }
     }
 }
