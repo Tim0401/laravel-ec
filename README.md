@@ -81,7 +81,6 @@ http://localhost/cms/order
 ## todo
 
 * error時のログ追加
-* 過去の画像の削除処理/画像サイズ変換
 
 * mysql 接続ユーザー変更(laravelユーザーに変更)
 * メール送信周り(mailtrap)

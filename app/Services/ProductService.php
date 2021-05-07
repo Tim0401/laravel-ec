@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Models\ProductTag;
 use Barryvdh\Debugbar\Facade as Debugbar;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ProductService
 {
@@ -52,6 +54,28 @@ class ProductService
         $query->orderBy($sort, $order);
 
         return $query;
+    }
+
+    /**
+     * 商品画像の保存
+     *
+     * @param \Illuminate\Http\UploadedFile $file
+     *
+     * @return string ファイルパス
+     */
+    public function uploadImage($file)
+    {
+        $imagePath = $file->store('public/products');
+        $image = Image::make(Storage::get($imagePath))->resize(
+            1024,
+            null,
+            function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            }
+        )->encode('jpg', 50);
+        Storage::put($imagePath, $image);
+        return Storage::url($imagePath);
     }
 
     /**

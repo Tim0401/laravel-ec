@@ -95,8 +95,7 @@ class CmsProductController extends Controller
     {
         $filePath = null;
         if ($request->file('image')) {
-            $filePath = $request->file('image')->store('public/products');
-            $filePath = '/storage/products/' . basename($filePath);
+            $filePath = $this->productService->uploadImage($request->file('image'));
         }
         try {
             $id = $this->productService->save(null, $request->toArray(), $filePath);
@@ -110,8 +109,7 @@ class CmsProductController extends Controller
     {
         $filePath = null;
         if ($request->file('image')) {
-            $filePath = $request->file('image')->store('public/products');
-            $filePath = '/storage/products/' . basename($filePath);
+            $filePath = $this->productService->uploadImage($request->file('image'));
         }
         try {
             $this->productService->save($product, $request->toArray(), $filePath);
